@@ -1,0 +1,111 @@
+
+.box1 {
+  width: 100%;
+  height: 450px;
+}
+.box2 {
+  width: 100%;
+  height: 450px;
+}
+.box3 {
+  width: 100%;
+  height: 450px;
+}
+
+.sign-box {
+  min-height: 100vh;
+  padding-top: 3%;
+  text-align: center;
+}
+
+.test-box {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+.title {
+  margin-top: 5%;
+  margin-left: 10%;
+  font-style: italic;
+}
+.title span {
+  font-size: 50px;
+  color: red;
+  font-style: italic;
+}
+.page_title {
+  text-align: center;
+}
+.test-content {
+  border-top: 1px solid;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 3%;
+  height: 60vh;
+}
+.explanation {
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 18px;
+  border-bottom: dashed 2px #ff5252;
+}
+.e_content {
+  margin-top: 5px;
+  font-size: 15px;
+  line-height: 25px;
+}
+.form-box {
+  margin-top: 15px;
+  text-align: center;
+}
+table {
+  margin: 0 auto;
+  width: 90%;
+}
+td {
+  font-size: 13px;
+  margin: 0;
+  padding: 5px;
+}
+.form {
+  margin: 0 auto;
+  width: 90%;
+  margin-top:  20px;
+  color: white;
+  background: #ef5350;
+  border-radius: 8px;
+  height: 30px;
+}
+.label {
+  background: rgb(221, 219, 219);
+  width: 25%;
+  border-radius: 8px;
+}
+td {
+  padding-left: 5px;
+}
+input, select {
+  border-radius: 5px;
+}
+.button-box{
+  margin-top: 3%;
+}
+button {
+  border: none;
+  padding: 8px;
+  background: #ef5350;
+  color: white;
+  border-radius: 8px;
+}
+
+.child {
+  margin-left: 10%;
+  background: yellow;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
