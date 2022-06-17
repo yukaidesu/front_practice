@@ -1,62 +1,27 @@
 import { atom } from 'recoil'
 
 
-export const UserAtom = atom<string>({
-    key: 'user',
+export const Money = atom({
+    key: 'money',
     default: {
-        money: '' as string,
+        howMuch: '' as string,
         why: '' as string,
     }
 })
 
-export const lastNameAtom = atom<string>({
-    key: 'lastNameAtom',
-    default: '' as string
-})
-
-export const firstNameAtom = atom<string>({
-    key: 'firstNameAtom',
-    default: '' as string
-})
-
-export const lastNameKanaAtom = atom<string>({
-    key: 'lastNameKanaAtom',
-    default: '' as string
-})
-
-export const firstNameKanaAtom = atom<string>({
-    key: 'firstNameKanaAtom',
-    default: '' as string
-})
-
-export const birthAtom = atom<string>({
-    key: 'birthAtom',
-    default: '' as string
-})
-
-export const genderMarriageAtom = atom<string>({
-    key: 'genderMarriageAtom',
-    default: '' as string
-})
-
-export const familyAtom = atom<string>({
-    key: 'familyAtom',
-    default: '' as string
-})
-
-export const kidsAtom = atom<string>({
-    key: 'kidsAtom',
-    default: '' as string
-})
-export const emailAtom = atom<string>({
-    key: 'emailAtom',
-    default: '' as string
-})
-export const licenseAtom = atom<string>({
-    key: 'licenseAtom',
-    default: '' as string
-})
-export const licenseNumberAtom = atom<string>({
-    key: 'licenseNumberAtom',
-    default: '' as string
+export const UserInfo = atom({
+    key: 'user',
+    default: {
+        lastName: '' as string,
+        firstName: '' as string,
+        lastNameKana: '' as string,
+        firstNameKana: '' as string,
+        birth: '' as string,
+        genderMarriage: '' as string,
+        family: '' as string,
+        kids: '' as string,
+        email: '' as string,
+        license: '' as string,
+        licenseNumber: '' as string
+    }
 })

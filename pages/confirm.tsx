@@ -1,27 +1,15 @@
 import Link from 'next/link';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import React, { useState } from "react";
+import React from "react";
 import Header from '../components/Header'
 import { useRecoilValue } from 'recoil'
-import { UserAtom, lastNameAtom, firstNameAtom, lastNameKanaAtom, firstNameKanaAtom,
-    birthAtom, genderMarriageAtom, familyAtom, kidsAtom, emailAtom, licenseAtom, licenseNumberAtom } from '../components/atom'
+import { Money, UserInfo } from '../components/atom'
 
 
 // 確認画面
 function Confirm() {
-    const money = useRecoilValue(UserAtom)
-    const why = useRecoilValue(UserAtom)
-    const lastName = useRecoilValue(lastNameAtom)
-    const firstName = useRecoilValue(firstNameAtom)
-    const lastNameKana = useRecoilValue(lastNameKanaAtom)
-    const firstNameKana = useRecoilValue(firstNameKanaAtom)
-    const birth = useRecoilValue(birthAtom)
-    const genderMarriage = useRecoilValue(genderMarriageAtom)
-    const family = useRecoilValue(familyAtom)
-    const kids = useRecoilValue(kidsAtom)
-    const email = useRecoilValue(emailAtom)
-    const license = useRecoilValue(licenseAtom)
-    const licenseNumber = useRecoilValue(licenseNumberAtom)
+    const moneyDetail =useRecoilValue(Money)
+    const userDetail = useRecoilValue(UserInfo)
 
     return (
         <div className='test-box'>
@@ -35,12 +23,12 @@ function Confirm() {
                             <tr>
                                 <td className='label' align="left">希望限度額</td>
                                 <td align="left">
-                                    {money}万円
+                                    {moneyDetail.howMuch}万円
                                 </td>
                             </tr>
                             <tr>
                                 <td className='label' align="left">ご利用目的</td>
-                                <td align="left">{why}</td>
+                                <td align="left">{moneyDetail.why}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -50,25 +38,25 @@ function Confirm() {
                             <tr>
                                 <td className='label' align="left">漢字氏名</td>
                                 <td align="left">
-                                    姓：{lastName}
-                                    　名：{firstName}
+                                    姓：{userDetail.lastName}
+                                    　名：{userDetail.firstName}
                                 </td>
                             </tr>
                             <tr>
                                 <td className='label' align="left">カナ氏名</td>
                                 <td align="left">
-                                    セイ：{lastNameKana}
-                                    　メイ：{firstNameKana}
+                                    セイ：{userDetail.lastNameKana}
+                                    　メイ：{userDetail.firstNameKana}
                                 </td>
                             </tr>
                             <tr>
                                 <td className='label' align="left">生年月日</td>
-                                <td align="left">{birth}</td>
+                                <td align="left">{userDetail.birth}</td>
                             </tr>
                             <tr>
                             <td className='label' align="left">性別／結婚有無</td>
                                 <td align="left">
-                                {genderMarriage}
+                                {userDetail.genderMarriage}
                                 </td>
                             </tr>
                             <tr>
@@ -76,17 +64,17 @@ function Confirm() {
                                 扶養家族<br />
                                 （お客さまの収入で<br />　生活されている家族です。）
                             </td>
-                                <td align="left">{family}人　内子ども　{kids}人</td>
+                                <td align="left">{userDetail.family}人　内子ども　{userDetail.kids}人</td>
                             </tr>
                             <tr>
                                 <td className='label' align="left">メールアドレス</td>
-                                <td align="left">{email}</td>
+                                <td align="left">{userDetail.email}</td>
                             </tr>
                             <tr>
                                 <td className='label' align="left">運転免許証</td>
                                 <td align="left">
-                                    {license}<br />
-                                    免許証番号　{licenseNumber}
+                                    {userDetail.license}<br />
+                                    免許証番号　{userDetail.licenseNumber}
                                 </td>
                             </tr>
                         </tbody>
