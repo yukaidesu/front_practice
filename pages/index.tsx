@@ -1,47 +1,110 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Image from 'next/image'
-import Header from '../components/Header'
-import Checkbox from '@mui/material/Checkbox';
-import label from '@mui/material/Checkbox';
-import Link from 'next/link';
+import { ChangeEvent, useState } from "react";
+import Header from "../components/Header";
+import Link from "next/link";
+import axios from "axios";
+
+type Zipcode = {
+  main: string;
+  sub: string;
+};
+type Address = {
+  address1: string;
+  address2: string;
+  address3: string;
+};
 
 function Home() {
-    return (
+  const [zipcode, setZipcodeMain] = useState<Zipcode>({
+    main: "",
+    sub: "",
+  });
+  const [address, setAddress] = useState<Address>({
+    address1: "",
+    address2: "",
+    address3: "",
+  });
+
+  const updateZipcodeMain = (e: ChangeEvent<HTMLInputElement>) => {
+    setZipcodeMain({ ...zipcode, main: e.target.value });
+  };
+  const updateZipcodeSub = async (e: ChangeEvent<HTMLInputElement>) => {
+    setZipcodeMain({ ...zipcode, sub: e.target.value });
+    if (e.target.value.length === 4 && zipcode.main.length === 3) {
+      try {
+        const res = await axios.get(
+          "https://zipcloud.ibsnet.co.jp/api/search",
+          {
+            params: {
+              zipcode: zipcode.main + e.target.value,
+            },
+          }
+        );
+        if (res.data.results) {
+          const result = res.data.results[0];
+          setAddress({
+            ...address,
+            address1: result["address1"],
+            address2: result["address2"],
+            address3: result["address3"],
+          });
+        }
+      } catch {
+        alert("住所の取得に失敗しました。");
+      }
+    }
+  };
+
+  return (
+    <div>
+      <Header />
+      <div className="test-content">
         <div>
-            <Header />
-            <div className='test-content'>
-            <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    <div className='box1'>
-                        <div><Checkbox {...label} color="secondary"/>気づいたらお金がない</div>
-                        <Image src="/images/no_money.png" width={310} height={400} />
-                    </div>
-                </Grid>
-                <Grid item xs={4}>
-                    <div className='box2'>
-                        <div><Checkbox {...label} color="success" />ほしいものがある</div>
-                        <Image src="/images/want.png" width={400} height={400} />
-                    </div>
-                </Grid>
-                <Grid item xs={4}>
-                    <div className='box3'>
-                        <div><Checkbox {...label} />あっても使いたくない</div>
-                        <Image src="/images/kechi.png" width={347} height={400} />
-                    </div>
-                </Grid>
-            </Grid>
-            <Grid container >
-                <Grid item xs={14}>
-                    <div className='sign-box'>
-                        <Link href="/form">
-                            <button>そんなあなたは！</button>
-                        </Link>
-                    </div>
-                </Grid>
-            </Grid>
+          <h2>郵便番号から住所の住所の自動入力</h2>
+          <div>
+            <span>郵便番号：</span>
+            <input
+              type="text"
+              onChange={updateZipcodeMain}
+              value={zipcode.main}
+            />
+            <span> - </span>
+            <input
+              type="text"
+              onChange={updateZipcodeSub}
+              value={zipcode.sub}
+            />
+          </div>
+          <div>
+            <p>住所を入力してください</p>
+            <div>
+              住所は：
+              <input
+                value={address.address1 + address.address2 + address.address3}
+              />
             </div>
+          </div>
+          <br />
+          <br />
+          <br />
+          <form id="aa">
+            <input id="aa" required></input>
+            <button id="aa">フォームタグテスト</button>
+          </form>
+          <br />
         </div>
-    )
+
+        <div className="sign-box">
+          <Link href="/test">
+            <button>テストページへ！</button>
+          </Link>
+          <br />
+          <br />
+          <Link href="/formPage">
+            <button>申込フォームへ！</button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 export default Home;
