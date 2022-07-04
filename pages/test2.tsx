@@ -1,8 +1,9 @@
 import { useRecoilValue } from "recoil";
-import { TestUserInfo } from "../components/atom";
+import { TestUserInfo } from "../components/store";
 
 const Test2 = () => {
   const user = useRecoilValue(TestUserInfo);
+
   return (
     <>
       練習：仮確認ページです

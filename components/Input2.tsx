@@ -7,7 +7,7 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Input: React.FC<Props> = (props) => {
+const Input2: React.FC<Props> = (props) => {
   const { value, placeholder, type, onChange } = props;
 
   return (
@@ -24,4 +24,4 @@ const Input: React.FC<Props> = (props) => {
   );
 };
 
-export default Input;
+export default Input2;

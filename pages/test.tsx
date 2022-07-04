@@ -1,15 +1,23 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { TestUserInfo } from "../components/atom";
+import { TestUserInfo } from "../components/store";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/router";
+import InputTest from "./inputTest";
+import { SELECT_GENDER } from "./LIST_select";
+import Select from "./select";
 
+interface IFormInputs {
+  firstName: string;
+  lastName: string;
+  gender: string;
+}
 function Test() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<IFormInputs>();
   const [user, setUser] = useRecoilState(TestUserInfo);
   const router = useRouter();
   const onSubmit = () => {
@@ -20,42 +28,48 @@ function Test() {
     <>
       練習：申し込みページです。
       <br />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="form" onSubmit={handleSubmit(onSubmit)}>
         姓：
-        <input
+        <InputTest
+          errors={errors.lastName}
+          errorMessage="苗字の入力がありません。"
+          id="form"
           value={user.lastName}
-          {...register("LastName", { required: true })}
+          placeholder="姓"
+          register={register("lastName", {
+            required: true,
+          })}
           onChange={(e) => setUser({ ...user, lastName: e.target.value })}
         />
-        <p>
-          {errors.LastName?.type === "required" && "苗字の入力がありません。"}
-        </p>
         <br />
         名：
-        <input
+        <InputTest
+          errors={errors.firstName}
+          errorMessage="名前の入力がありません。"
+          id="form"
           value={user.firstName}
-          {...register("firstName", { required: true })}
+          placeholder="名"
+          register={register("firstName", {
+            required: true,
+          })}
           onChange={(e) => setUser({ ...user, firstName: e.target.value })}
         />
-        <p>
-          {errors.firstName?.type === "required" && "名前の入力がありません。"}
-        </p>
         <br />
         性別：
-        <select
-          value={user.gender}
-          {...register("gender", { required: true })}
+        <Select
+          errors={errors.gender}
+          errorMessage="選択されていません。"
+          id="form"
+          selectList={SELECT_GENDER}
+          register={register("gender", {
+            required: true,
+          })}
           onChange={(e) => setUser({ ...user, gender: e.target.value })}
-        >
-          <option value="" hidden>
-            choose
-          </option>
-          <option value="female">female</option>
-          <option value="male">male</option>
-        </select>
-        <p>{errors.gender?.type === "required" && "選択してください"}</p>
+        />
         <br />
-        <button type="submit">送信</button>
+        <button id="form" type="submit">
+          送信
+        </button>
       </form>
     </>
   );

@@ -83,14 +83,6 @@ function Home() {
               />
             </div>
           </div>
-          <br />
-          <br />
-          <br />
-          <form id="aa">
-            <input id="aa" required></input>
-            <button id="aa">フォームタグテスト</button>
-          </form>
-          <br />
         </div>
 
         <div className="sign-box">

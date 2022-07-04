@@ -24,12 +24,3 @@ export const UserInfo = atom({
     licenseNumber: "" as string,
   },
 });
-export type TestUserInfo = {
-  lastName?: string;
-  firstName?: string;
-  gender?: string;
-};
-export const TestUserInfo = atom<TestUserInfo>({
-  key: "user",
-  default: {},
-});
