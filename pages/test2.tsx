@@ -11,6 +11,8 @@ const Test2 = () => {
       <br /> 名：{user.firstName}
       <br /> 性別：
       {user.gender}
+      <br /> 住所：
+      {user.postalCode}
     </>
   );
 };

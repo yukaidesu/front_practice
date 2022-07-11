@@ -2,15 +2,12 @@ import { ChangeEvent, useState } from "react";
 import Header from "../components/Header";
 import Link from "next/link";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { TestUserInfo } from "../components/store";
 
 type Zipcode = {
   main: string;
   sub: string;
-};
-type Address = {
-  address1: string;
-  address2: string;
-  address3: string;
 };
 
 function Home() {
@@ -18,11 +15,8 @@ function Home() {
     main: "",
     sub: "",
   });
-  const [address, setAddress] = useState<Address>({
-    address1: "",
-    address2: "",
-    address3: "",
-  });
+  const [address, setAddress] = useState<string>("");
+  const [trueAddress, setTrueAddress] = useState(address);
 
   const updateZipcodeMain = (e: ChangeEvent<HTMLInputElement>) => {
     setZipcodeMain({ ...zipcode, main: e.target.value });
@@ -41,19 +35,16 @@ function Home() {
         );
         if (res.data.results) {
           const result = res.data.results[0];
-          setAddress({
-            ...address,
-            address1: result["address1"],
-            address2: result["address2"],
-            address3: result["address3"],
-          });
+          setAddress(
+            result["address1"] + result["address2"] + result["address3"]
+          );
         }
       } catch {
         alert("住所の取得に失敗しました。");
       }
     }
   };
-
+  const [user, setUser] = useRecoilState(TestUserInfo);
   return (
     <div>
       <Header />
@@ -61,13 +52,13 @@ function Home() {
         <div>
           <h2>郵便番号から住所の住所の自動入力</h2>
           <div>
-            <span>郵便番号：</span>
+            郵便番号：
             <input
               type="text"
               onChange={updateZipcodeMain}
               value={zipcode.main}
             />
-            <span> - </span>
+            ー
             <input
               type="text"
               onChange={updateZipcodeSub}
@@ -75,16 +66,16 @@ function Home() {
             />
           </div>
           <div>
-            <p>住所を入力してください</p>
-            <div>
-              住所は：
-              <input
-                value={address.address1 + address.address2 + address.address3}
-              />
-            </div>
+            住所：{address}
+            <br />
+            住所：
+            <input
+              className="postalInput"
+              defaultValue={address}
+              onChange={(e) => setUser({ ...user, postalCode: e.target.value })}
+            />
           </div>
         </div>
-
         <div className="sign-box">
           <Link href="/test">
             <button>テストページへ！</button>
