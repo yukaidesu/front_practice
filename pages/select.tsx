@@ -8,7 +8,6 @@ type List = {
 type Props = {
   selectList: List[];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  id: string;
   register: UseFormRegisterReturn;
   errors: FieldError | undefined;
   errorMessage: string;
@@ -17,11 +16,7 @@ type Props = {
 const Select: React.FC<Props> = (props) => {
   return (
     <>
-      <select
-        {...props.register}
-        id={props.id}
-        onChange={(e) => props.onChange(e)}
-      >
+      <select {...props.register} onChange={(e) => props.onChange(e)}>
         <option value="" selected hidden>
           選択してください
         </option>

@@ -5,31 +5,30 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { TestUserInfo } from "../components/store";
 
-type Zipcode = {
+type ZipCode = {
   main: string;
   sub: string;
 };
 
 function Home() {
-  const [zipcode, setZipcodeMain] = useState<Zipcode>({
+  const [zipCode, setZipCodeMain] = useState<ZipCode>({
     main: "",
     sub: "",
   });
   const [address, setAddress] = useState<string>("");
-  const [trueAddress, setTrueAddress] = useState(address);
 
-  const updateZipcodeMain = (e: ChangeEvent<HTMLInputElement>) => {
-    setZipcodeMain({ ...zipcode, main: e.target.value });
+  const updateZipCodeMain = (e: ChangeEvent<HTMLInputElement>) => {
+    setZipCodeMain({ ...zipCode, main: e.target.value });
   };
-  const updateZipcodeSub = async (e: ChangeEvent<HTMLInputElement>) => {
-    setZipcodeMain({ ...zipcode, sub: e.target.value });
-    if (e.target.value.length === 4 && zipcode.main.length === 3) {
+  const updateZipCodeSub = async (e: ChangeEvent<HTMLInputElement>) => {
+    setZipCodeMain({ ...zipCode, sub: e.target.value });
+    if (e.target.value.length === 4 && zipCode.main.length === 3) {
       try {
         const res = await axios.get(
           "https://zipcloud.ibsnet.co.jp/api/search",
           {
             params: {
-              zipcode: zipcode.main + e.target.value,
+              zipcode: zipCode.main + e.target.value,
             },
           }
         );
@@ -55,14 +54,14 @@ function Home() {
             郵便番号：
             <input
               type="text"
-              onChange={updateZipcodeMain}
-              value={zipcode.main}
+              onChange={updateZipCodeMain}
+              value={zipCode.main}
             />
             ー
             <input
               type="text"
-              onChange={updateZipcodeSub}
-              value={zipcode.sub}
+              onChange={updateZipCodeSub}
+              value={zipCode.sub}
             />
           </div>
           <div>
@@ -72,7 +71,7 @@ function Home() {
             <input
               className="postalInput"
               defaultValue={address}
-              onChange={(e) => setUser({ ...user, postalCode: e.target.value })}
+              onChange={(e) => setUser({ ...user, address: e.target.value })}
             />
           </div>
         </div>
